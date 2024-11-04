@@ -1,5 +1,12 @@
-% Specify the zip file and the destination folder
+% Specify the zip file
 zipFileName = 'DiceDataset.zip';
 
-% Extract the contents
-unzip(zipFileName);
+% If the dataset doesn't exist, unzip it
+if ~exist('DiceDataset', 'dir')
+    % Extract the contents
+    unzip(zipFileName);
+end
+
+% Load the image
+img = imread('DiceDataset/1/00000.bmp');
+imshow(img)
