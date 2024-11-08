@@ -8,13 +8,18 @@ if ~exist('DiceDataset', 'dir')
 end
 
 % Load the image
-img = imread('DiceDataset/1/00000.bmp');
-imshow(img)
+img = imread('DiceDataset/5/00100.bmp');
 
-disp(size(img))
-% Show the dimensions of the image
-[numRows, numCols, numColorChannels] = size(img);
-fprintf('Image size is %d rows x %d columns x %d color channels.\n', numRows, numCols, numColorChannels);
-if numColorChannels == 1
-    fprintf('The image is a single channel image (a grayscale image).\n');
-end
+bw = imbinarize(img, 'adaptive');
+bw = bwareaopen(bw, 50);
+bw = imopen(bw, strel('disk', 3));
+zeroDice = imclose(bw, strel('disk', 8));
+
+% Mask the original image with the binarized image
+maskedImg = img .* cast(zeroDice, 'like', img);
+% maskedImg(~repmat(bw, [1, 1, 3])) = 0;
+binDice = imbinarize(maskedImg, "adaptive");
+% Display the masked image
+imshow(binDice);
+disp(nnz(bw) / nnz(binDice))
+% imshow(zeroDice)
