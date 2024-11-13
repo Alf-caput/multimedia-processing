@@ -16,6 +16,7 @@ for true_pip_count = 1: 6
     dir_path = fullfile(base_dir, num2str(true_pip_count));
     % Get a list of all images in the directory
     image_files = dir(fullfile(dir_path, '*.bmp'));
+    disp("Processing directory " + dir_path);
     for k = 1:length(image_files)
         % Get the full path to the image file
         file_path = fullfile(image_files(k).folder, image_files(k).name);
@@ -40,3 +41,10 @@ disp(confusion_matrix);
 figure;
 confusionchart(confusion_matrix);
 title('Confusion Matrix for Dice Pip Count Prediction');
+
+% Extract the diagonal (correct predictions)
+correct_predictions = trace(confusion_matrix); % Sum of diagonal elements
+% Calculate the total number of predictions
+total_predictions = sum(confusion_matrix(:)); % Sum of all elements in the matrix
+accuracy = correct_predictions / total_predictions;
+fprintf("Accuracy: %.2f%%\n", accuracy * 100);
