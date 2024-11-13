@@ -15,6 +15,11 @@ for i = 1:6
     dices{i} = dice;
 end
 
+for i = 1:length(dices)
+    dice = dices{i};
+    [pips, centers, radii] = count_pips(dice);
+    fprintf("Pips: %d\n", pips);
+end
 
 montage(dices);
 % Assuming `binaryImage` is your binarized image with white regions on black background
