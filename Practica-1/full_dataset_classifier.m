@@ -1,10 +1,12 @@
-% white_die = imread("DiceDataset/5/00000.bmp");
-% black_die = imread("DiceDataset/2/00399.bmp");
+% Specify the zip file
+zipFileName = 'DiceDataset.zip';
 
-% target = white_die;
-% [pips, centers, radii] = count_pips(target);
-% imshow(target);
-% viscircles(centers, radii, 'Color', 'r');
+% If the dataset doesn't exist, unzip it
+if ~exist('DiceDataset', 'dir')
+    % Extract the contents
+    unzip(zipFileName);
+end
+
 total_images = 2400;
 true_labels = zeros(total_images, 1);
 predicted_labels = zeros(total_images, 1);
