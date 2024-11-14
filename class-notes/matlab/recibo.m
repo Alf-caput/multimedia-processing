@@ -80,3 +80,7 @@ Nmin = nnz(minIndices);
 EsRecibo = Nmin >= 9;
 
 disp(EsRecibo)
+
+montage({img_smooth, img_close_gray});
+montage({img_gray, img_receipt});
+montage({img_receipt, img_receipt_bw});
